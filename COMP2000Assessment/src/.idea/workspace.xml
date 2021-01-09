@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6c25517-7bdc-4ab5-b279-c2ede4c19543" name="Default Changelist" comment="" />
+    <list default="true" id="f6c25517-7bdc-4ab5-b279-c2ede4c19543" name="Default Changelist" comment="Added Admin Panel to GUI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +34,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/AlexDenman47674/COMP2000" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1mpqwaUKnpynW74DUvxx4nFhdq6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -95,7 +102,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610201141475</updated>
-      <workItem from="1610201157021" duration="5154000" />
+      <workItem from="1610201157021" duration="8038000" />
     </task>
     <servers />
   </component>
@@ -112,6 +119,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Admin Panel to GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Admin Panel to GUI" />
   </component>
   <component name="WindowStateProjectService">
     <state x="763" y="121" key="#Project_Structure" timestamp="1610203083625">
@@ -134,22 +145,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="260" y="278" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610203985767" />
-    <state width="914" height="280" key="GridCell.Tab.0.bottom" timestamp="1610206247110">
+    <state width="914" height="280" key="GridCell.Tab.0.bottom" timestamp="1610209176665">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610206247110" />
-    <state width="914" height="280" key="GridCell.Tab.0.center" timestamp="1610206247110">
+    <state width="914" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610209176665" />
+    <state width="914" height="280" key="GridCell.Tab.0.center" timestamp="1610209176665">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610206247110" />
-    <state width="914" height="280" key="GridCell.Tab.0.left" timestamp="1610206247110">
+    <state width="914" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610209176665" />
+    <state width="914" height="280" key="GridCell.Tab.0.left" timestamp="1610209176665">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610206247110" />
-    <state width="914" height="280" key="GridCell.Tab.0.right" timestamp="1610206247110">
+    <state width="914" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610209176665" />
+    <state width="914" height="280" key="GridCell.Tab.0.right" timestamp="1610209176665">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610206247110" />
+    <state width="914" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610209176665" />
     <state x="730" y="399" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog" timestamp="1610205544872">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -7,8 +7,19 @@ public class Admin {
 
         public int ID;
 
+        public void setLoginName(String loginName) {
+                LoginName = loginName;
+        }
 
-        //public Stock Database stock Database;
+        public void setPassword(String password) {
+                Password = password;
+        }
+
+        public void setID(String ID) {
+                ID = ID;
+        }
+
+        public StockDatabase StockDatabase;
 
 
         public void LogIn() {
