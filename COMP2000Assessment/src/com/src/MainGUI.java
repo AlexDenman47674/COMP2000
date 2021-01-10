@@ -151,7 +151,7 @@ public class MainGUI implements ActionListener{
                 try{
                     FileWriter myWriter = new FileWriter("StockDatabase.txt");
                     for (int i = 0; i < OldProductID.length; i++) {
-                        if(OldProductID[i] == StockControlID.getText() || OldProductAmounts[i] == StockControlAmount.getText()){
+                        if(OldProductID[i].equals(StockControlID.getText()) || OldProductAmounts[i].equals(StockControlAmount.getText())){
                             System.out.println("Stock Removed");
                         } else {
                             myWriter.write(OldProductID[i] + "\r");
@@ -171,7 +171,28 @@ public class MainGUI implements ActionListener{
         EditStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                String[] OldProductID;
+                String[] OldProductAmounts;
+                OldProductID=Stock.getProductID();
+                OldProductAmounts=Stock.getProductRemaining();
+                try{
+                    FileWriter myWriter = new FileWriter("StockDatabase.txt");
+                    for (int i = 0; i < OldProductID.length; i++) {
+                        if(OldProductID[i].equals(StockControlID.getText())){
+                            myWriter.write(OldProductID[i] + "\r");
+                            myWriter.write(StockControlAmount.getText() + "\r");
+                        } else {
+                            myWriter.write(OldProductID[i] + "\r");
+                            myWriter.write(OldProductAmounts[i] + "\r");
+                        }
+
+                    }
+
+                    myWriter.close();
+                }catch (IOException y){
+                    System.out.println("An error occurred");
+                    y.printStackTrace();
+                }
             }
         });
 
