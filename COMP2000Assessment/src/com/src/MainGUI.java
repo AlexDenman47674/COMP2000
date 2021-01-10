@@ -41,7 +41,7 @@ public class MainGUI implements ActionListener{
         }
 
         try{
-            File StockDatabase = new File("C:\\Users\\Alex\\Desktop\\COMP2000\\Assessment1\\StockDatabase.txt");
+            File StockDatabase = new File("D:\\Github\\COMP2000\\COMP2000Assessment\\SRC\\StockDatabase.txt");
             Scanner myReader = new Scanner(StockDatabase);
             for (int i = 0; i < 2; i++) {
                 Stock.setProductID(myReader.nextLine(), i);
@@ -148,6 +148,30 @@ public class MainGUI implements ActionListener{
                 String[] OldProductAmounts;
                 OldProductID=Stock.getProductID();
                 OldProductAmounts=Stock.getProductRemaining();
+                try{
+                    FileWriter myWriter = new FileWriter("StockDatabase.txt");
+                    for (int i = 0; i < OldProductID.length; i++) {
+                        if(OldProductID[i] == StockControlID.getText() || OldProductAmounts[i] == StockControlAmount.getText()){
+                            System.out.println("Stock Removed");
+                        } else {
+                            myWriter.write(OldProductID[i] + "\r");
+                            myWriter.write(OldProductAmounts[i] + "\r");
+                        }
+
+                    }
+
+                    myWriter.close();
+                }catch (IOException y){
+                    System.out.println("An error occurred");
+                    y.printStackTrace();
+                }
+            }
+        });
+
+        EditStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
             }
         });
 
