@@ -16,10 +16,15 @@ import java.util.Scanner;
 
 public class MainGUI implements ActionListener{
     public Admin Admin1 = new Admin();
+    public StockDatabase Stock = new StockDatabase();
     public JTextField textField;
     public JTextField textField2;
     public JTextField OrderIDInput;
     public JTextField OrderAmountInput;
+    public JList StockID;
+    public JList StockAmount;
+    public JTextField StockControlID;
+    public JTextField StockControlAmount;
 
 
     public MainGUI(){
@@ -29,6 +34,20 @@ public class MainGUI implements ActionListener{
             Admin1.setLoginName(myReader.nextLine());
             Admin1.setPassword(myReader.nextLine());
             Admin1.setID(myReader.nextLine());
+            myReader.close();
+        } catch (FileNotFoundException x){
+            System.out.println("An error occurred");
+            x.printStackTrace();
+        }
+
+        try{
+            File StockDatabase = new File("C:\\Users\\Alex\\Desktop\\COMP2000\\Assessment1\\StockDatabase.txt");
+            Scanner myReader = new Scanner(StockDatabase);
+            for (int i = 0; i < 2; i++) {
+                Stock.setProductID(myReader.nextLine(), i);
+                Stock.setProductRemaining(myReader.nextLine(), i);
+            }
+
             myReader.close();
         } catch (FileNotFoundException x){
             System.out.println("An error occurred");
@@ -66,8 +85,75 @@ public class MainGUI implements ActionListener{
         AdminPanel.add(OrderAmountInput);
         AdminPanel.add(Order);
 
+        JLabel label5 = new JLabel("Stock Database Panel");
+        JLabel IDLabel = new JLabel("Product ID");
+        JLabel AmountLabel = new JLabel("Product Amount");
+        JLabel label6 = new JLabel("Controls");
+        StockID = new JList(Stock.getProductID());
+        StockAmount = new JList(Stock.getProductRemaining());
+        JButton AddToStock = new JButton("Add");
+        JButton RemoveFromStock = new JButton("Remove");
+        JButton EditStock = new JButton("Edit");
+        JLabel label7 = new JLabel("Product ID");
+        JLabel label8 = new JLabel("Product Amount");
+        StockControlAmount = new JTextField();
+        StockControlID = new JTextField();
+
+
+        JPanel StockPanel = new JPanel();
+        StockPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+        StockPanel.setLayout(new GridLayout(0,1));
+        StockPanel.add(label5);
+        StockPanel.add(IDLabel);
+        StockPanel.add(StockID);
+        StockPanel.add(AmountLabel);
+        StockPanel.add(StockAmount);
+        StockPanel.add(label6);
+        StockPanel.add(label7);
+        StockPanel.add(StockControlID);
+        StockPanel.add(label8);
+        StockPanel.add(StockControlAmount);
+        StockPanel.add(AddToStock);
+        StockPanel.add(RemoveFromStock);
+        StockPanel.add(EditStock);
+
+        AddToStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] OldProductID;
+                String[] OldProductAmounts;
+                OldProductID=Stock.getProductID();
+                OldProductAmounts=Stock.getProductRemaining();
+                try{
+                    FileWriter myWriter = new FileWriter("StockDatabase.txt");
+                    for (int i = 0; i < OldProductID.length; i++) {
+                        myWriter.write(OldProductID[i] + "\r");
+                        myWriter.write(OldProductAmounts[i] + "\r");
+                    }
+                    myWriter.write(StockControlID.getText() + "\r");
+                    myWriter.write(StockControlAmount.getText());
+
+                    myWriter.close();
+                }catch (IOException y){
+                    System.out.println("An error occurred");
+                    y.printStackTrace();
+                }
+            }
+        });
+
+        RemoveFromStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] OldProductID;
+                String[] OldProductAmounts;
+                OldProductID=Stock.getProductID();
+                OldProductAmounts=Stock.getProductRemaining();
+            }
+        });
+
 
         frame.add(AdminPanel, BorderLayout.WEST);
+        frame.add(StockPanel, BorderLayout.EAST);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("COMP2000 Assessment");
         frame.pack();
