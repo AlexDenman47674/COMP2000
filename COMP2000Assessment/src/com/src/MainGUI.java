@@ -25,6 +25,9 @@ public class MainGUI implements ActionListener{
     public JList StockAmount;
     public JTextField StockControlID;
     public JTextField StockControlAmount;
+    public JTextField ProductIDInput;
+    public JTextArea ShoppingCart;
+    public JTextField Total;
 
 
     public MainGUI(){
@@ -91,6 +94,10 @@ public class MainGUI implements ActionListener{
         JLabel label6 = new JLabel("Controls");
         StockID = new JList(Stock.getProductID());
         StockAmount = new JList(Stock.getProductRemaining());
+        JScrollPane StockIDScroll = new JScrollPane(StockID);
+        StockIDScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPane StockAmountScroll = new JScrollPane(StockAmount);
+        StockAmountScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         JButton AddToStock = new JButton("Add");
         JButton RemoveFromStock = new JButton("Remove");
         JButton EditStock = new JButton("Edit");
@@ -105,9 +112,9 @@ public class MainGUI implements ActionListener{
         StockPanel.setLayout(new GridLayout(0,1));
         StockPanel.add(label5);
         StockPanel.add(IDLabel);
-        StockPanel.add(StockID);
+        StockPanel.add(StockIDScroll);
         StockPanel.add(AmountLabel);
-        StockPanel.add(StockAmount);
+        StockPanel.add(StockAmountScroll);
         StockPanel.add(label6);
         StockPanel.add(label7);
         StockPanel.add(StockControlID);
@@ -116,6 +123,32 @@ public class MainGUI implements ActionListener{
         StockPanel.add(AddToStock);
         StockPanel.add(RemoveFromStock);
         StockPanel.add(EditStock);
+
+
+        JLabel label9 = new JLabel("Kiosk Panel");
+        JLabel ItemIDLabel = new JLabel("Scan item ID");
+        ProductIDInput = new JTextField();
+        JLabel ShoppingListLabel = new JLabel("Current Items");
+        ShoppingCart = new JTextArea();
+        JScrollPane ShoppingScroll = new JScrollPane(ShoppingCart);
+        ShoppingScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JButton AddToCart = new JButton("Add to Cart");
+        JLabel FinalTotalLabel = new JLabel("Final Total");
+        Total = new JTextField();
+
+
+        JPanel KioskPanel = new JPanel();
+        KioskPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+        KioskPanel.setLayout(new GridLayout(0,1));
+        KioskPanel.add(label9);
+        KioskPanel.add(ProductIDInput);
+        KioskPanel.add(ItemIDLabel);
+        KioskPanel.add(AddToCart);
+        KioskPanel.add(ShoppingListLabel);
+        KioskPanel.add(ShoppingScroll);
+        KioskPanel.add(FinalTotalLabel);
+        KioskPanel.add(Total);
+
 
         AddToStock.addActionListener(new ActionListener() {
             @Override
@@ -198,7 +231,8 @@ public class MainGUI implements ActionListener{
 
 
         frame.add(AdminPanel, BorderLayout.WEST);
-        frame.add(StockPanel, BorderLayout.EAST);
+        frame.add(StockPanel, BorderLayout.CENTER);
+        frame.add(KioskPanel, BorderLayout.EAST);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("COMP2000 Assessment");
         frame.pack();
