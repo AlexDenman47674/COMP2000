@@ -11,12 +11,16 @@ import java.io.Reader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 
 
 public class MainGUI implements ActionListener{
     public Admin Admin1 = new Admin();
     public StockDatabase Stock = new StockDatabase();
+    public Product Product1 = new Product();
+    public Product Product2 = new Product();
+    public Product Product3 = new Product();
     public JTextField textField;
     public JTextField textField2;
     public JTextField OrderIDInput;
@@ -28,6 +32,8 @@ public class MainGUI implements ActionListener{
     public JTextField ProductIDInput;
     public JTextArea ShoppingCart;
     public JTextField Total;
+    public double TotalCost;
+
 
 
     public MainGUI(){
@@ -56,6 +62,26 @@ public class MainGUI implements ActionListener{
             System.out.println("An error occurred");
             x.printStackTrace();
         }
+        try{
+            File Products = new File("D:\\Github\\COMP2000\\COMP2000Assessment\\SRC\\Products.txt");
+            Scanner myReader = new Scanner(Products);
+            Product1.setID(myReader.nextLine());
+            Product1.setName(myReader.nextLine());
+            Product1.setPrice(Double.parseDouble(myReader.nextLine()));
+            Product2.setID(myReader.nextLine());
+            Product2.setName(myReader.nextLine());
+            Product2.setPrice(Double.parseDouble(myReader.nextLine()));
+            Product3.setID(myReader.nextLine());
+            Product3.setName(myReader.nextLine());
+            Product3.setPrice(Double.parseDouble(myReader.nextLine()));
+
+
+            myReader.close();
+        } catch (FileNotFoundException x){
+            System.out.println("An error occurred");
+            x.printStackTrace();
+        }
+
 
 
         JFrame frame = new JFrame();
@@ -135,6 +161,8 @@ public class MainGUI implements ActionListener{
         JButton AddToCart = new JButton("Add to Cart");
         JLabel FinalTotalLabel = new JLabel("Final Total");
         Total = new JTextField();
+        JButton CheckoutButtonCash = new JButton("Checkout with Cash");
+        JButton CheckoutButtonCard = new JButton("Checkout with Card");
 
 
         JPanel KioskPanel = new JPanel();
@@ -148,6 +176,42 @@ public class MainGUI implements ActionListener{
         KioskPanel.add(ShoppingScroll);
         KioskPanel.add(FinalTotalLabel);
         KioskPanel.add(Total);
+        KioskPanel.add(CheckoutButtonCash);
+        KioskPanel.add(CheckoutButtonCard);
+
+        CheckoutButtonCard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int input = JOptionPane.showConfirmDialog(null, "This is an automated message from the Bank of ******. Are you sure you wish to use card?");
+                // 0=yes, 1=no, 2=cancel
+                System.out.println(input);
+                if (input==0){
+                    //Proceed to checkout
+                }
+            }
+        });
+
+        AddToCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String CurrentProductID;
+                CurrentProductID = ProductIDInput.getText();
+                if (CurrentProductID.equals("1")){
+                    TotalCost = TotalCost + Product1.getPrice();
+                    ShoppingCart.setText(ShoppingCart.getText() + Product1.getName() + " : " + Product1.getPrice() + "\n");
+
+                } else if (CurrentProductID.equals("2")){
+                    TotalCost = TotalCost + Product2.getPrice();
+                    ShoppingCart.setText(ShoppingCart.getText() + Product2.getName() + " : " + Product2.getPrice() + "\n");
+                }else if (CurrentProductID.equals("3")){
+                    TotalCost = TotalCost + Product3.getPrice();
+                    ShoppingCart.setText(ShoppingCart.getText() + Product3.getName() + " : " + Product3.getPrice() + "\n");
+                }
+
+                String T = String.valueOf(TotalCost);
+                Total.setText(T);
+            }
+        });
 
 
         AddToStock.addActionListener(new ActionListener() {

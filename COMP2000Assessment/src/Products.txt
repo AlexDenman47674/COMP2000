@@ -1,0 +1,9 @@
+1
+Toilet Paper
+5.99
+2
+DVD
+10.99
+3
+Expensive Magazine
+59.99
