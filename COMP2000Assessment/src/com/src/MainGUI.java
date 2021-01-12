@@ -12,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 
@@ -35,6 +37,10 @@ public class MainGUI implements ActionListener{
     public double TotalCost;
     public JTextArea ReceiptItems;
     public Receipt Receipt1 = new Receipt();
+    public JTextField ReceiptTotal;
+    public JLabel ReceiptPaymentMethod;
+    public JLabel ReceiptDate;
+    public JLabel ReceiptChange;
 
 
 
@@ -184,12 +190,13 @@ public class MainGUI implements ActionListener{
 
         JLabel label10 = new JLabel("Receipt Panel");
         JLabel ReceiptCompanyName = new JLabel("Less-Co. Superstores");
-        JLabel ReceiptDate = new JLabel("Current Date Here");
+        ReceiptDate = new JLabel("Current Date Here");
         ReceiptItems = new JTextArea();
         JScrollPane ReceiptScroll = new JScrollPane(ReceiptItems);
         ReceiptScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JTextField ReceiptTotal = new JTextField();
-        JLabel ReceiptPaymentMethod = new JLabel("Payment Method");
+        ReceiptTotal = new JTextField();
+        ReceiptPaymentMethod = new JLabel("Payment Method");
+        ReceiptChange = new JLabel("Change Owed");
 
         JPanel ReceiptPanel = new JPanel();
         ReceiptPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
@@ -200,6 +207,7 @@ public class MainGUI implements ActionListener{
         ReceiptPanel.add(ReceiptScroll);
         ReceiptPanel.add(ReceiptTotal);
         ReceiptPanel.add(ReceiptPaymentMethod);
+        ReceiptPanel.add(ReceiptChange);
 
 
         CheckoutButtonCard.addActionListener(new ActionListener() {
@@ -220,6 +228,19 @@ public class MainGUI implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Receipt1.setPaymentMethod("Cash");
+                if (TotalCost < 5){
+                    Receipt1.setChangeOwed(5-TotalCost);
+                } else if (TotalCost <10 & TotalCost >5){
+                    Receipt1.setChangeOwed(10-TotalCost);
+                }else if (TotalCost <20 & TotalCost >10){
+                    Receipt1.setChangeOwed(20-TotalCost);
+                }else if (TotalCost <50 & TotalCost >20){
+                    Receipt1.setChangeOwed(50-TotalCost);
+                }else if (TotalCost <100 & TotalCost >50){
+                    Receipt1.setChangeOwed(100-TotalCost);
+                }else{
+                    Receipt1.setChangeOwed(200-TotalCost);
+                }
                 Checkout();
             }
         });
@@ -338,6 +359,14 @@ public class MainGUI implements ActionListener{
     }
 
     private void Checkout() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime CurrentTime = LocalDateTime.now();
+        ReceiptDate.setText(String.valueOf(CurrentTime));
+        Receipt1.setTotal(TotalCost);
+        ReceiptTotal.setText(String.valueOf(Receipt1.Total));
+        ReceiptChange.setText(String.valueOf(Receipt1.getChangeOwed()));
+        ReceiptPaymentMethod.setText(Receipt1.getPaymentMethod());
+        ReceiptItems.setText(ShoppingCart.getText());
 
     }
 
