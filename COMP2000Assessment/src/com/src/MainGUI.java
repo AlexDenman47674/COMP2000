@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 
 
 public class MainGUI implements ActionListener{
+
+    //List of public accessable variables and elements within the GUI
     public Admin Admin1 = new Admin();
     public StockDatabase Stock = new StockDatabase();
     public Product Product1 = new Product();
@@ -43,11 +45,14 @@ public class MainGUI implements ActionListener{
     public JLabel ReceiptChange;
 
 
-
+    //GUI Method
     public MainGUI(){
         try{
+            //Reads Admin details from text file at destination Assessment 1 : Admin.txt
             File AdminDetails = new File("C:\\Users\\Alex\\Desktop\\COMP2000\\Assessment1\\Admin.txt");
             Scanner myReader = new Scanner(AdminDetails);
+
+            //Stores Admin details in the Admin Class
             Admin1.setLoginName(myReader.nextLine());
             Admin1.setPassword(myReader.nextLine());
             Admin1.setID(myReader.nextLine());
@@ -58,6 +63,7 @@ public class MainGUI implements ActionListener{
         }
 
         try{
+            //Reads Stock data from the Database file
             File StockDatabase = new File("D:\\Github\\COMP2000\\COMP2000Assessment\\SRC\\StockDatabase.txt");
             Scanner myReader = new Scanner(StockDatabase);
             for (int i = 0; i < 2; i++) {
@@ -71,8 +77,10 @@ public class MainGUI implements ActionListener{
             x.printStackTrace();
         }
         try{
+            //Reads Product data
             File Products = new File("D:\\Github\\COMP2000\\COMP2000Assessment\\SRC\\Products.txt");
             Scanner myReader = new Scanner(Products);
+            //Stores Product data in three hard coded Product Classes, if more Products were to be added, more classes would be needed
             Product1.setID(myReader.nextLine());
             Product1.setName(myReader.nextLine());
             Product1.setPrice(Double.parseDouble(myReader.nextLine()));
@@ -91,9 +99,10 @@ public class MainGUI implements ActionListener{
         }
 
 
-
+        //Creates the frame for the GUI to be built upon
         JFrame frame = new JFrame();
 
+        //Declaring elements for the Admin Panel of the GUI
         JLabel label = new JLabel("Admin Panel");
         JLabel label2 = new JLabel("Admin UserName:");
         JLabel label3 = new JLabel("Admin Password:");
@@ -105,8 +114,10 @@ public class MainGUI implements ActionListener{
         OrderIDInput = new JTextField();
         OrderAmountInput = new JTextField();
         JButton Order = new JButton("Place Order");
+        //Adds an Action Listener that runs a section of code when the Order Button is pressed
         Order.addActionListener(this);
 
+        //Formats the elements on the Admin Panel
         JPanel AdminPanel = new JPanel();
         AdminPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         AdminPanel.setLayout(new GridLayout(0,1));
@@ -122,6 +133,7 @@ public class MainGUI implements ActionListener{
         AdminPanel.add(OrderAmountInput);
         AdminPanel.add(Order);
 
+        //Declaring elements for the Stock Database Panel of the GUI
         JLabel label5 = new JLabel("Stock Database Panel");
         JLabel IDLabel = new JLabel("Product ID");
         JLabel AmountLabel = new JLabel("Product Amount");
@@ -141,6 +153,7 @@ public class MainGUI implements ActionListener{
         StockControlID = new JTextField();
 
 
+        //Formats the elements on the Stock Panel
         JPanel StockPanel = new JPanel();
         StockPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         StockPanel.setLayout(new GridLayout(0,1));
@@ -159,6 +172,7 @@ public class MainGUI implements ActionListener{
         StockPanel.add(EditStock);
 
 
+        //Declares elements for the Kiosk Panel
         JLabel label9 = new JLabel("Kiosk Panel");
         JLabel ItemIDLabel = new JLabel("Scan item ID");
         ProductIDInput = new JTextField();
@@ -173,6 +187,7 @@ public class MainGUI implements ActionListener{
         JButton CheckoutButtonCard = new JButton("Checkout with Card");
 
 
+        //Formats the elements on the Kiosk Panel
         JPanel KioskPanel = new JPanel();
         KioskPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         KioskPanel.setLayout(new GridLayout(0,1));
@@ -188,6 +203,7 @@ public class MainGUI implements ActionListener{
         KioskPanel.add(CheckoutButtonCard);
 
 
+        //Declares elements for the Receipt Panel
         JLabel label10 = new JLabel("Receipt Panel");
         JLabel ReceiptCompanyName = new JLabel("Less-Co. Superstores");
         ReceiptDate = new JLabel("Current Date Here");
@@ -198,6 +214,7 @@ public class MainGUI implements ActionListener{
         ReceiptPaymentMethod = new JLabel("Payment Method");
         ReceiptChange = new JLabel("Change Owed");
 
+        //Formats the elements on the Receipt Panel
         JPanel ReceiptPanel = new JPanel();
         ReceiptPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         ReceiptPanel.setLayout(new GridLayout(0,1));
@@ -209,10 +226,11 @@ public class MainGUI implements ActionListener{
         ReceiptPanel.add(ReceiptPaymentMethod);
         ReceiptPanel.add(ReceiptChange);
 
-
+        //Action Listener connected to the Checkout with Card Button
         CheckoutButtonCard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Creates a popup message that the user must agree to to proceed
                 int input = JOptionPane.showConfirmDialog(null, "This is an automated message from the Bank of ******. Are you sure you wish to use card?");
                 // 0=yes, 1=no, 2=cancel
                 System.out.println(input);
@@ -224,10 +242,12 @@ public class MainGUI implements ActionListener{
             }
         });
 
+        //Action Listener connected to the Checkout With Cash Button
         CheckoutButtonCash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Receipt1.setPaymentMethod("Cash");
+                //Calculates change based on common British Notes (5,10,20,50, etc.)
                 if (TotalCost < 5){
                     Receipt1.setChangeOwed(5-TotalCost);
                 } else if (TotalCost <10 & TotalCost >5){
@@ -245,11 +265,13 @@ public class MainGUI implements ActionListener{
             }
         });
 
+        //Action Listener connected to the Add to Cart Button
         AddToCart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String CurrentProductID;
                 CurrentProductID = ProductIDInput.getText();
+                //Depending on the Product being added, appropriate data is input into the Shopping Cart
                 if (CurrentProductID.equals("1")){
                     TotalCost = TotalCost + Product1.getPrice();
                     ShoppingCart.setText(ShoppingCart.getText() + Product1.getName() + " : " + Product1.getPrice() + "\n");
@@ -267,7 +289,7 @@ public class MainGUI implements ActionListener{
             }
         });
 
-
+        //Action Listener connected to the Add to Stock Button
         AddToStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -276,6 +298,7 @@ public class MainGUI implements ActionListener{
                 OldProductID=Stock.getProductID();
                 OldProductAmounts=Stock.getProductRemaining();
                 try{
+                    //The Current items are rewritten into  the file and then followed by the latest item after the loop has ended
                     FileWriter myWriter = new FileWriter("StockDatabase.txt");
                     for (int i = 0; i < OldProductID.length; i++) {
                         myWriter.write(OldProductID[i] + "\r");
@@ -292,6 +315,7 @@ public class MainGUI implements ActionListener{
             }
         });
 
+        //Action Listener connected to the Remove from Stock Button
         RemoveFromStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -302,6 +326,7 @@ public class MainGUI implements ActionListener{
                 try{
                     FileWriter myWriter = new FileWriter("StockDatabase.txt");
                     for (int i = 0; i < OldProductID.length; i++) {
+                        //An IF statement is used to detect the removed Product using Product ID's
                         if(OldProductID[i].equals(StockControlID.getText()) || OldProductAmounts[i].equals(StockControlAmount.getText())){
                             System.out.println("Stock Removed");
                         } else {
@@ -319,6 +344,7 @@ public class MainGUI implements ActionListener{
             }
         });
 
+        //Action Listener connected to the Edit Stock Button
         EditStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -348,6 +374,7 @@ public class MainGUI implements ActionListener{
         });
 
 
+        //The panels are each added to the frame and formatted with a location.
         frame.add(AdminPanel, BorderLayout.WEST);
         frame.add(StockPanel, BorderLayout.CENTER);
         frame.add(KioskPanel, BorderLayout.EAST);
@@ -358,6 +385,7 @@ public class MainGUI implements ActionListener{
         frame.setVisible(true);
     }
 
+    //Private method that produces the Receipt
     private void Checkout() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime CurrentTime = LocalDateTime.now();
@@ -377,6 +405,7 @@ public class MainGUI implements ActionListener{
     }
 
 
+    //Action Listener connected to the Order Button
     public void actionPerformed(ActionEvent e) {
         try{
             FileWriter myWriter = new FileWriter("Orders.txt");

@@ -7,6 +7,8 @@ public class Admin {
 
         public int ID;
 
+        //Getters and Setters for the java classes
+
         public void setLoginName(String loginName) {
                 LoginName = loginName;
         }
