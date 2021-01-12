@@ -33,6 +33,8 @@ public class MainGUI implements ActionListener{
     public JTextArea ShoppingCart;
     public JTextField Total;
     public double TotalCost;
+    public JTextArea ReceiptItems;
+    public Receipt Receipt1 = new Receipt();
 
 
 
@@ -179,6 +181,27 @@ public class MainGUI implements ActionListener{
         KioskPanel.add(CheckoutButtonCash);
         KioskPanel.add(CheckoutButtonCard);
 
+
+        JLabel label10 = new JLabel("Receipt Panel");
+        JLabel ReceiptCompanyName = new JLabel("Less-Co. Superstores");
+        JLabel ReceiptDate = new JLabel("Current Date Here");
+        ReceiptItems = new JTextArea();
+        JScrollPane ReceiptScroll = new JScrollPane(ReceiptItems);
+        ReceiptScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JTextField ReceiptTotal = new JTextField();
+        JLabel ReceiptPaymentMethod = new JLabel("Payment Method");
+
+        JPanel ReceiptPanel = new JPanel();
+        ReceiptPanel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+        ReceiptPanel.setLayout(new GridLayout(0,1));
+        ReceiptPanel.add(label10);
+        ReceiptPanel.add(ReceiptCompanyName);
+        ReceiptPanel.add(ReceiptDate);
+        ReceiptPanel.add(ReceiptScroll);
+        ReceiptPanel.add(ReceiptTotal);
+        ReceiptPanel.add(ReceiptPaymentMethod);
+
+
         CheckoutButtonCard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,7 +210,17 @@ public class MainGUI implements ActionListener{
                 System.out.println(input);
                 if (input==0){
                     //Proceed to checkout
+                    Receipt1.setPaymentMethod("Card");
+                    Checkout();
                 }
+            }
+        });
+
+        CheckoutButtonCash.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Receipt1.setPaymentMethod("Cash");
+                Checkout();
             }
         });
 
@@ -297,10 +330,15 @@ public class MainGUI implements ActionListener{
         frame.add(AdminPanel, BorderLayout.WEST);
         frame.add(StockPanel, BorderLayout.CENTER);
         frame.add(KioskPanel, BorderLayout.EAST);
+        frame.add(ReceiptPanel,BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("COMP2000 Assessment");
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void Checkout() {
+
     }
 
     public static void main(String[] args){
